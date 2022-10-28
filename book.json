@@ -1,0 +1,34 @@
+{
+    "language" : "zh-hans",
+    "title": "whaohub",
+    "description": "gitbook description",
+    "links" : {
+        "sidebar" : {
+           "GitHub" : "https://github.com/whaohub"
+        }
+    },
+    "plugins": [
+        "todo",
+        "back-to-top-button",
+        "chapter-fold",
+        "splitter",
+        "github",
+        "anchor-navigation-ex",
+        "simple-page-toc",
+        "search-pro", "-lunr", "-search",
+        "lightbox"
+    ],
+    "pluginsConfig": {
+        "github": {
+            "url": "https://github.com/whaohub/cloud_notes"
+        },
+        "simple-page-toc":{
+            "maxDepth": 3,
+            "skipFirstH1": true
+        },
+        "anchor-navigation-ex": {
+            "showLevel": false,  
+            "showGoTop": false 
+        }
+    }
+}
