@@ -1,0 +1,25 @@
+{
+    "language" : "zh-hans",
+    "title": "whaohub",
+    "description": "gitbook description",
+       "plugins": [
+        "todo",
+        "back-to-top-button",
+        "chapter-fold",
+        "splitter",
+        "anchor-navigation-ex",
+        "simple-page-toc",
+        "search-pro", "-lunr", "-search",
+        "lightbox"
+    ],
+    "pluginsConfig": {
+        "simple-page-toc":{
+            "maxDepth": 3,
+            "skipFirstH1": true
+        },
+        "anchor-navigation-ex": {
+            "showLevel": false,  
+            "showGoTop": false 
+        }
+    }
+}
