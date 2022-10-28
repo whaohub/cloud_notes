@@ -65,21 +65,15 @@
     * [FFMPEG](Library/FFmpeg/FFMPEG.md)
     * [FFmpeg常用函数](Library/FFmpeg/FFmpeg常用函数.md)
     * [音视频基础](Library/FFmpeg/音视频基础.md)
-  - Gstreamer
-    * [Deep Streame Fun](Library/Gstreamer/#%20DeepStreame Fun.md)
-    * [Glib](Library/Gstreamer/#%20Glib.md)
-    * [Gstreamer Demo](Library/Gstreamer/#%20Gstreamer Demo.md)
-    * [Gstreamer Fun](Library/Gstreamer/#%20Gstreamer Fun.md)
-    * [Gstreamer](Library/Gstreamer/#%20Gstreamer.md)
-    * [# kafka 安装](Library/Gstreamer/#%20kafka 安装.md)
   - G Test
     * [Gtest Install](Library/GTest/gtest%20install.md)
     * [Gtest Sample](Library/GTest/gtest_sample.md)
   - Libyuv
     * [Libyuv Install](Library/libyuv/libyuv%20install.md)
-  - [Open Cv](Library/OpenCv/opencv.md)
-    * [Open Cv Code Note](Library/OpenCv/OpenCv%20 Code Note.md)
-    * [OpenCv Ubuntu 环境配置](Library/OpenCv/OpenCv%20Ubuntu 环境配置.md)
+  - Opencv
+    * [Opencv Install](Library/opencv/opencv_install.md)
+    * [Open Cv Code Note](Library/opencv/OpenCvCodeNote.md)
+    * [OpenCvUbuntu环境配置](Library/opencv/OpenCvUbuntu环境配置.md)
 - Linux
   - Shell Scripts
     * [Shell Tips](Linux/shell_scripts/shell%20tips.md)
