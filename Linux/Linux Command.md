@@ -155,6 +155,8 @@ whao@ThinkPadX1:~/whao/Shell$ du -h HelloShell.sh
 
 * du -lh --max-depth=1 : 查看当前目录下一级子文件和子目录占用的磁盘容量。
 
+* du -h -d 1 / | sort -hr   顺序输出空间占用大小
+
 ### ldconfig命令
 
  ldconfig命令的用途主要是在默认搜寻目录/lib和/usr/lib以及动态库配置文件/etc/ld.so.conf内所列的目录下，搜索出可共享的动态链接库（格式如lib*.so*）,进而创建出动态装入程序(ld.so)所需的连接和缓存文件。缓存文件默认为/etc/ld.so.cache，此文件保存已排好序的动态链接库名字列表，为了让动态链接库为系统所共享，需运行动态链接库的管理命令ldconfig，此执行程序存放在/sbin目录下。
@@ -330,6 +332,12 @@ rm-f `find 指定目录 -type f`
 
 https://www.tecmint.com/35-practical-examples-of-linux-find-command/
 
+> 递归删除文件夹下指定名字文件
+
+```shell
+find ./ -name *.log | xargs rm -f
+```
+
 ## kill 命令 问题
 
 有下面两种情况进程是无法杀掉的：
@@ -474,4 +482,67 @@ ps aux | grep soffice | grep -v grep | awk '{print $2}' | sudo xargs kill -9
 [samples]:https://linuxconfig.org/rsync-command-examples
 [ totural]: https://everythinglinux.org/rsync/
 
-## 命令执行判断依据
+## lsof
+
+查看系统里占用fd最多的进程  
+用root用户运行下面的命令，可以打印出每个进程占用的fd数量（从大到小):
+
+```shell
+lsof -n | awk '{print $2}' | sort | uniq -c | sort -nr | more
+```
+
+## 查看文件描述符数量
+
+```shell
+#查看所有进程允许打开的最大 fd 数量
+ cat /proc/sys/fs/file-max
+174139
+
+#查看所有进程已经打开的 fd 数量以及允许的最大数量
+cat /proc/sys/fs/file-nr
+11040   0       174139
+
+#查看单个进程允许打开的最大 fd 数量.
+ulimit -n
+32768
+```
+
+## dstat 命令
+
+**dstat命令** 是一个用来替换vmstat、iostat、netstat、nfsstat和ifstat这些命令的工具，是一个全能系统信息统计工具。与sysstat相比，dstat拥有一个彩色的界面，在手动观察性能状况时，数据比较显眼容易观察；而且dstat支持即时刷新，譬如输入`dstat 3`即每三秒收集一次，但最新的数据都会每秒刷新显示。和sysstat相同的是，dstat也可以收集指定的性能资源，譬如`dstat -c`即显示CPU的使用情况。
+
+### 语法
+
+```shell
+dstat [-afv] [options..] [delay [count]]
+```
+
+### 常用选项
+
+```shell
+-c：显示CPU系统占用，用户占用，空闲，等待，中断，软件中断等信息。
+-C：当有多个CPU时候，此参数可按需分别显示cpu状态，例：-C 0,1 是显示cpu0和cpu1的信息。
+-d：显示磁盘读写数据大小。
+-D hda,total：include hda and total。
+-n：显示网络状态。
+-N eth1,total：有多块网卡时，指定要显示的网卡。
+-l：显示系统负载情况。
+-m：显示内存使用情况。
+-g：显示页面使用情况。
+-p：显示进程状态。
+-s：显示交换分区使用情况。
+-S：类似D/N。
+-r：I/O请求情况。
+-y：系统状态。
+--ipc：显示ipc消息队列，信号等信息。
+--socket：用来显示tcp udp端口状态。
+-a：此为默认选项，等同于-cdngy。
+-v：等同于 -pmgdsc -D total。
+--output 文件：此选项也比较有用，可以把状态信息以csv的格式重定向到指定的文件中，以便日后查看。例：dstat --output /root/dstat.csv & 此时让程序默默的在后台运行并把结果输出到/root/dstat.csv文件中。
+```
+
+如想监控swap，process，sockets，filesystem并显示监控的时间：
+
+```shell
+[root@iZ23uulau1tZ ~] dstat -tsp --socket --fs
+```

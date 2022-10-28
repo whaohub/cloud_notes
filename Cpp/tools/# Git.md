@@ -148,6 +148,28 @@ $ git branch dev
 $ git checkout dev
 ```
 
+### 替换git checkout
+
+It’s a command that Git has added in `Git 2.23`
+
+```git
+if you want to switch branches than we can use
+
+git switch develop
+# same as 'git checkout develop'
+git switch -c new-branch
+# same as 'git checkout -b new-branch'
+and also you can use if you restore a file
+
+git restore README.md
+# same as 'git checkout -- README.md'
+git restore --staged README.md
+# same as 'git reset HEAD README.md'
+
+```
+
+
+
 ### 拉取远程指定分支到本地
 
 ```
@@ -373,3 +395,8 @@ git add --verbose . > ../progress.txt & percent=0; while [[ $percent -le 99 && $
 
 Tags:
   git
+
+
+
+
+

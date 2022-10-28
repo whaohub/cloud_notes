@@ -1,5 +1,5 @@
 # Gstreamer Fun
- 
+
 * gst_parse_launch(args ...)
 
 ```
@@ -12,27 +12,29 @@ error – the error message in case of an erroneous pipeline.
 ```
 
 * gst_element_get_bus
-```
-Returns the bus of the element. Note that only a GstPipeline will provide a bus for the application.
+  
+  ```
+  Returns the bus of the element. Note that only a GstPipeline will provide a bus for the application.
+  ```
 
 Parameters:
 
 element – a GstElement to get the bus of.
-```
 
+```
 * gst_element_get_static_pad 
-
 ```
+
 GstPad * gst_element_get_static_pad (GstElement * element,const gchar * name)
 
 根据element取出一个name的存在pad
 element – a GstElement to find a static pad of.   需要查找pad的元素
 name – the name of the static GstPad to retrieve   取回的pad名字
-```
 
+```
 * gst_pad_add_probe
-
 ```
+
 gulong gst_pad_add_probe (GstPad * pad,
                    GstPadProbeType mask,
                    GstPadProbeCallback callback,
@@ -59,6 +61,7 @@ an id or 0 if no probe is pending. The id can be used to remove the probe with g
 创建一个能够实例化该类型对象的新 elementfactory 并将工厂添加到plugin
 为了创建名字event_judge 元素的插件
 ```
+
 参数：
 
 plugin ( [允许无] ) – GstPlugin用于注册元素，或NULL用于静态元素。
@@ -69,7 +72,6 @@ type —— 要注册的元素的 GType
 return :  —— TRUE , 如果注册成功, FALSE错误
 
 ```
-
 
 Tags:
   Fun, gstreamer

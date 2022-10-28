@@ -262,10 +262,6 @@ ldd [ 选项  ] 文件
 -r --function-relocs:对目标对象和函数执行重新部署，并报告缺少的目标对象和函数(只对ELE格式的文件适用)
 [Linking](simplenote://note/098efcf5-0662-4e14-8e28-165aeacdf402)
 
-
-
-
-
 查看链接器搜索路径
 
  ld --verbose | grep SEARCH

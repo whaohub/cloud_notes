@@ -32,12 +32,6 @@ do
 done
 ```
 
-
-
-
-
-
-
 [Shell Tutorials-1](simplenote://note/13b685ca-cf98-4042-a289-9ab52bfd113c)
 
 Tags:

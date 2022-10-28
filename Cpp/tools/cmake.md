@@ -80,13 +80,9 @@ if(CMAKE_SYSTEM_NAME STREQUAL "Linux")
 endif()
 ```
 
-
-
 ## cmake 参数
 
 ```cmake
 LINK_DIRECTORIES()
 需要在add_executable()前定义
 ```
-
-

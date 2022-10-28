@@ -82,8 +82,6 @@ public:
 
 //C++17 完善了这一设定，给出的结构化绑定可以让我们写出这样的代码
 
-
-
 ```cpp
 std::tuple<int, double, std::string> f()
 {
@@ -101,5 +99,3 @@ void print_tuple()
 
 }
 ```
-
-

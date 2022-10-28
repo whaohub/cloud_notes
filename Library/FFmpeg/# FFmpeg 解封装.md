@@ -106,7 +106,7 @@ av_dict_set(&options, "rtsp_transport", "tcp", 0);  //
 
 ## 减少解复用时间优化
 
-```
+```c
 //输入并解析流
         LOG_PRINTF(LOG_LEVEL_DEBUG, LOG_MODULE_DECODER, "will open input file %s.", pu8FileName);
 

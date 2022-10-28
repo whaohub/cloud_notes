@@ -46,6 +46,20 @@ sudo ufw allow to any //开放其他所有端口
 
 ## tcpdump 抓包
 
+-nnA:显示json
+
+```shell
+tcpdump -v -X -i enp3s0f0 port 1883 -nnA
+```
+
 ## nc 监听端口
 
 ****
+
+## netstat
+
+查看socket使用情况
+
+```svg
+ netstat -na | awk '/^tcp/ {++S[$NF]} END {for(a in S) print a, S[a]}'
+```

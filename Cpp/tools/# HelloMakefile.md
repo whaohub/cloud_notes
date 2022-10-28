@@ -194,3 +194,14 @@ SRC_FILES := $(filter-out src/bar.cpp, $(SRC_FILES))
 ```
 
 [c++ - Exclude source file in compilation using Makefile - Stack Overflow](https://stackoverflow.com/questions/10276202/exclude-source-file-in-compilation-using-makefile)
+
+## makefile 导出宏区分编译
+
+字符串需要加入转义字符
+
+```makefile
+CXX_FLAGS += -DBMODEL=\"bmodel\"
+
+#ifndef BMODEL
+#enif
+```

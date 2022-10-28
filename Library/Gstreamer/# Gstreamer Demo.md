@@ -1,17 +1,17 @@
-
-
-
 # Gstreamer Demo
 
 =====
 简单过程
- * gst_init()
- * 创建元素（element）
- * add bin(pipeline)  添加到bin/pipeline
- * linking element
+
+* gst_init()
+* 创建元素（element）
+* add bin(pipeline)  添加到bin/pipeline
+* linking element
 
 ## Basic tutorial
-###  Hello world!
+
+### Hello world!
+
 * basic-tutorial-1.c 文件
 
 ```
@@ -23,8 +23,8 @@ pipeline_description – the command line describing the pipeline
 error – the error message in case of an erroneous pipeline.
 
 在 GStreamer 中，您通常通过手动组装单个元素来构建管道，但是，当管道足够简单并且您不需要任何高级功能时，您可以使用快捷方式：gst_parse_launch()
-
 ```
+
 playbin:
 Playbin 为音频和/或视频播放器提供了一个独立的一体式抽象。
 
@@ -42,6 +42,7 @@ Playbin 可以处理音频和视频文件和功能
 ##Bastic -2
 
 ## Element
+
 ## Create a Element
 
 创建元素最简单的方式是使用  gst_element_factory_make()， 此函数为新创建的元素采用工厂名称和元素名称。
@@ -71,8 +72,8 @@ int main(int argc, char **argv)
     return 0;
 }
 ```
-gst_element_factory_make实际上是两个函数组合的简写。甲 GstElement 对象是从一个工厂创建的。要创建元素，您必须GstElementFactory 使用唯一的工厂名称访问 对象。这是通过 gst_element_factory_find ().
 
+gst_element_factory_make实际上是两个函数组合的简写。甲 GstElement 对象是从一个工厂创建的。要创建元素，您必须GstElementFactory 使用唯一的工厂名称访问 对象。这是通过 gst_element_factory_find ().
 
 ## First Appliation
 
@@ -158,7 +159,7 @@ int main(int argc, char **argv)
     gst_init(&argc, &argv);
 
     loop = g_main_loop_new(NULL, FALSE);
-    
+
     //check input args
     if(argc != 2)
     {
@@ -173,8 +174,8 @@ int main(int argc, char **argv)
     decoder  = gst_element_factory_make ("vorbisdec",      "vorbis-decoder");
     conv     = gst_element_factory_make ("audioconvert",   "converter");
     sink     = gst_element_factory_make ("autoaudiosink",  "audio-output");
-    
-    
+
+
     if(!pipeline || !source || !demuxer || !decoder || !conv || !sink)
     {
         g_printerr("One element count not be created. exiting\n");
@@ -185,17 +186,17 @@ int main(int argc, char **argv)
 
     /* set the input filename to the source element */
     g_object_set(G_OBJECT(source), "location", argv[1], NULL);
-    
+
     /* add a message handler */
     bus = gst_pipeline_get_bus(GST_PIPELINE(pipeline));
     bus_watch_id = gst_bus_add_watch(bus, bus_call, loop);
     gst_object_unref(bus);
-    
+
     /* add all elements into pipeline */
     /* file-source | ogg-demuxer | vorbis-decoder | converter | alsa-output */
 
     gst_bin_add_many(GST_BIN(pipeline), source, demuxer, decoder, conv, sink, NULL);
-    
+
     /* link the elements together */
     /* file-source -> ogg-demuxer -> vorbis-decoder -> converter -> alsa-output */
     gst_element_link(source, demuxer);
@@ -222,7 +223,6 @@ int main(int argc, char **argv)
     return 0;
 }
 ```
-
 
 Tags:
   gstreamer

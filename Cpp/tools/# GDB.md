@@ -45,6 +45,12 @@ directory ../ki/    //指定源码搜索路径
 
 * set environment
 
+```c
+gdb your_program
+
+(gdb) set environment LD_PRELOAD ./yourso.so
+```
+
 ## gdb optimized out 问题
 
 gdb调试程序的时候打印变量值会出现<value optimized out> 情况,可以在gcc编译的时候加上 -O0参数项,意思是不进行编译优化,调试的时候就会顺畅了,运行流程不会跳来跳去的,发布项目的时候记得不要在使用-O0参数项,gcc 默认编译或加上-O2优化编译会提高程序运行速度.

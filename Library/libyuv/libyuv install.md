@@ -15,5 +15,3 @@
 ```shell
  export PATH=/path/to/depot_tools:$PATH
 ```
-
-

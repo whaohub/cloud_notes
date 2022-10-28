@@ -58,5 +58,42 @@ docker run --rm -it -v $(pwd):/source schickling/opencv
  g++ $(pkg-config --cflags --libs opencv) my-file.cpp
 ```
 
+## Docker 安装脚本
+
+```shell
+#!/bin/bash
+#@brief: 
+#@author: whao
+
+#install docker
+function docker_install()
+{
+        echo "Checking Docker......"
+        docker -v
+    if [ $? -eq  0 ]; then
+        echo "Docker is Already installed!"
+    else
+        echo "install and set  docker..."
+    echo "Checking curl ......"
+    curl -V
+    if [ $? -ne 0 ];
+    then
+    echo "install curl....."
+    sudo -S apt update && sudo apt install curl
+    fi
+        curl https://get.docker.com | sh \
+        && sudo systemctl --now enable docker
+        if [ $? -eq 0 ]
+            then
+        echo "install and set docker success"
+        else
+        echo "install and set docker failed"
+        exit 1
+        fi
+    fi
+}
+docker_install
+```
+
 Tags:
   Docker, 库框架

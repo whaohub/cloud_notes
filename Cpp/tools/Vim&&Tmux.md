@@ -112,6 +112,12 @@ Also note that pressing . after a visual block operation will repeat that operat
 
 [ref]: https://www.jb51.net/LINUXjishu/608817.html
 
+
+
+## vim粘贴格错乱
+
+esc:set paste进入paste 模式后，按i 键进入插入模式，然后再粘帖，文本**格式**不会错乱了
+
 ## Tmux 配置
 
 ```shell
@@ -159,5 +165,19 @@ Also note that pressing . after a visual block operation will repeat that operat
   run '~/.tmux/plugins/tpm/tpm'
 ```
 
-Tags:
-  vim
+## tmux 自动保存会话
+
+[服务器自动保存tmux会话以及恢复tmux会话 - 腾讯云开发者社区-腾讯云](https://cloud.tencent.com/developer/article/1990169?from=article.detail.1659864)
+
+## neovim配置
+
+插件
+
+```shell
+Plug 'christoomey/vim-tmux-navigator'
+<ctrl-L> 切换到右侧窗口
+<ctrl-H>切换到左侧窗口
+<ctrl-J>切换到下方窗口
+<ctrl-K>切换到上方窗口
+<ctrl-/>切换到刚刚的窗口
+```
