@@ -1,4 +1,4 @@
-# Linkers  And Loaders
+# Linkers And Loaders
 
 ## 一 编译和链接
 
