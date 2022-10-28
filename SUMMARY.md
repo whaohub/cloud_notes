@@ -78,8 +78,8 @@
   - Libyuv
     * [Libyuv Install](Library/libyuv/libyuv%20install.md)
   - [Open Cv](Library/OpenCv/opencv.md)
-    * [Open Cv Code Note](Library/OpenCv/#%20OpenCv  Code Note.md)
-    * [# OpenCv Ubuntu 环境配置](Library/OpenCv/#%20OpenCv Ubuntu 环境配置.md)
+    * [Open Cv Code Note](Library/OpenCv/OpenCv%20 Code Note.md)
+    * [OpenCv Ubuntu 环境配置](Library/OpenCv/OpenCv%20Ubuntu 环境配置.md)
 - Linux
   - Shell Scripts
     * [Shell Tips](Linux/shell_scripts/shell%20tips.md)
