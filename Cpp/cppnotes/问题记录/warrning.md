@@ -72,8 +72,8 @@ int}’ [-Wformat=]
            if(pos = (filepath.find_last_of("/") != std::string::npos))
   ```
   
-  需修改为判断前使用扩哈 if((pos = (filepath.find_last_of("/")) != std::string::npos))
+  需修改为判断前使用扩哈 if((pos = (filepath.find_last_of("/")) != std::string::npo
 
-```
+## invalid new-expression of abstract class type
 
-```
+说明抽象类中有函数没有具体实现，无法实例化类

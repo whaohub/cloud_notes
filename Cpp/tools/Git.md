@@ -1,5 +1,7 @@
 # Git
 
+[TOC]
+
 ## git clone时遇到问题
 
 证书校验有问题 ：server certificate verification failed. CAfile: none CRLfile: none
@@ -165,10 +167,7 @@ git restore README.md
 # same as 'git checkout -- README.md'
 git restore --staged README.md
 # same as 'git reset HEAD README.md'
-
 ```
-
-
 
 ### 拉取远程指定分支到本地
 
@@ -323,8 +322,8 @@ git update-index --assume-unchanged <file>
 - step 1 : 进入本地仓库
 - step 2 : 执行命令 git remote -v 查看你的远程仓库路径
 
-```
-jitu@jitu-Precision-3640-Tower:~/whao/cloudstaring/cloudstaringSrc$ git remote -v
+```git
+git remote -v
 origin    git@42.193.36.70:Hello/cloudstaring.git (fetch)
 origin    git@42.193.36.70:Hello/cloudstaring.git (push)
 ```
@@ -332,28 +331,29 @@ origin    git@42.193.36.70:Hello/cloudstaring.git (push)
  如果上面只有俩行，说明未设置upstream
 
 - step 3 : 执行命令
-  
-  ```
-  git remote add upstream http://42.193.36.70:23005/jitutech/cloudstaring.git
-  ```
 
-jitu@jitu-Precision-3640-Tower:~/whao/cloudstaring/cloudstaringSrc$ git remote -v
+```git
+git remote add upstream http://42.193.36.70:23005/jitutech/cloudstaring.git
+
+git remote -v
 origin    git@42.193.36.70:Hello/cloudstaring.git (fetch)
 origin    git@42.193.36.70:Hello/cloudstaring.git (push)
 upstream    http://42.193.36.70:23005/jitutech/cloudstaring.git (fetch)
 upstream    http://42.193.36.70:23005/jitutech/cloudstaring.git (push)
-
 ```
+
 - step 4 : 执行命令 git status 检查本地是否有未提交的更改
-```
 
+```git
 git add -A 或者 git add filename
 git commit -m "your note"
 git push origin master
 git status
+```
+
+### merge 的关键命令
 
 ```shell
-### merge 的关键命令
  - step 5 : 执行命令 git fetch upstream 抓取原仓库的更新
  - step 6 : 执行命令 git checkout master 切换到master分支
  - step 7 : 执行命令 git merge upstream/master 合并远程的master分支
@@ -378,12 +378,66 @@ git log --all --decorate --oneline --graph
 git log --graph --decorate --oneline
 ```
 
-## 查看指定commit修改
+## Abort commit
+
+- 查看commit指定文件的修改信息
 
 ```shell
 git show commitId
 git show commitId fileName
 ```
+
+- 撤销操作
+  
+  有时候我们提交完了才发现漏掉了几个文件没有添加，或者提交信息写错了。 此时，可以运行带有 `--amend` 选项的提交命令来重新提交：
+  
+  ```console
+  $ git commit --amend
+  ```
+  
+  这个命令会将暂存区中的文件提交。 如果自上次提交以来你还未做任何修改（例如，在上次提交后马上执行了此命令）， 那么快照会保持不变，而你所修改的只是提交信息。
+  
+  文本编辑器启动后，可以看到之前的提交信息。 编辑后保存会覆盖原来的提交信息。
+  
+  例如，你提交后发现忘记了暂存某些需要的修改，可以像下面这样操作：
+  
+  ```console
+  $ git commit -m 'initial commit'
+  $ git add forgotten_file
+  $ git commit --amend
+  ```
+  
+  最终你只会有一个提交——第二次提交将代替第一次提交的结果。
+
+- 使用git rebase -i 来修改某一次的提交信息
+  
+  ```svg
+  git rebase -i master^^ // 假设我们当前在master分支
+  ```
+  
+  > 上面两个^是什么鬼？上述操作在分支名后总共可以放两个字符，一个是一个是~，具体规则如下
+  
+  - ^ 的用法：在 commit 的后面加一个或多个 ^ 号，可以把 commit 往回偏移，偏移的数量是 ^ 的数量。例如：master^^表示 当前master 指向的 commit 之前倒数第2个 commit
+  - ~ 的用法：在 commit 的后面加上 ~ 号和一个数，可以把 commit 往回偏移，偏移的数量是 ~ 号后面的数。例如：master~2 表示的和master^^是一样操作。
+
+    eg: 想要修改的信息是倒数第二条
+
+       step1
+
+```git
+git rebase -i branch master~2
+```
+
+ 接下来可以操作的命令都在上图中显示了，我们要做的是编辑，并且要编辑的是第一行（它的排列顺序是一个正序排序，也就是说旧的commit信息在上面，新的commit在下面），我们将pick改为edit,推出保存
+
+step2 做想要修改的操作
+
+```git
+git add file
+git commit --amend -m "msg"
+```
+
+step3 改完信息后，我们还需要git rebase --continue
 
 ## git add显示进度
 
@@ -395,8 +449,3 @@ git add --verbose . > ../progress.txt & percent=0; while [[ $percent -le 99 && $
 
 Tags:
   git
-
-
-
-
-
