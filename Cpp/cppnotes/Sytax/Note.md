@@ -86,5 +86,34 @@ extern "C" {
 }
 ```
 
+## 打印颜色输出
+
+```c
+#define ZC_NONE         "\033[m"
+#define ZC_RED          "\033[0;32;31m"
+#define ZC_LIGHT_RED    "\033[1;31m"
+#define ZC_GREEN        "\033[0;32;32m"
+#define ZC_LIGHT_GREEN  "\033[1;32m"
+#define ZC_BLUE         "\033[0;32;34m"
+#define ZC_LIGHT_BLUE   "\033[1;34m"
+#define ZC_DARY_GRAY    "\033[1;30m"
+#define ZC_CYAN         "\033[0;36m"
+#define ZC_LIGHT_CYAN   "\033[1;36m"
+#define ZC_PURPLE       "\033[0;35m"
+#define ZC_LIGHT_PURPLE "\033[1;35m"
+#define ZC_BROWN        "\033[0;33m"
+#define ZC_YELLOW       "\033[1;33m"
+#define ZC_LIGHT_GRAY   "\033[0;37m"
+#define ZC_WHITE        "\033[1;37m"
+
+fprintf(stdout, "%s func %s() line %d," ZC_RED "cannot found engine:" ZC_NONE "%s\n", __FILE__, __FUNCTION__, __LINE__, enginePath.c_str());
+```
+
+## 打印函数名
+
+[GCC](https://so.csdn.net/so/search?q=GCC&spm=1001.2101.3001.7020) 预定义了两个标识符来保存当前函数的名称。 标识符 `__FUNCTION__` 包含函数在源代码中出现的名称。 [标识符](https://so.csdn.net/so/search?q=标识符&spm=1001.2101.3001.7020) `__PRETTY_FUNCTION__` 包含以特定语言方式漂亮打印的函数名称。
+
+
+
 Tags:
   daily, Note

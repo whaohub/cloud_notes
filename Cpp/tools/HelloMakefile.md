@@ -201,7 +201,6 @@ SRC_FILES := $(filter-out src/bar.cpp, $(SRC_FILES))
 
 ```makefile
 CXX_FLAGS += -DBMODEL=\"bmodel\"
-
 #ifndef BMODEL
 #enif
 ```

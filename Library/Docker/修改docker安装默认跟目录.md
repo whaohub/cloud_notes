@@ -1,6 +1,8 @@
+[toc]
+
 # Change Docker root directory /var/lib/docker to another location
 
-# step1
+## step1
 
 停掉docker 服务
 
@@ -66,3 +68,31 @@ root     3919385  0.4  0.5 1753856 86084 ?       Ssl  22:19   0:04 /usr/bin/dock
 ```
 
 [Change Docker root directory]:https://linuxconfig.org/how-to-move-docker-s-default-var-lib-docker-to-another-directory-on-ubuntu-debian-linux
+
+
+
+# 修改docker容器启动的映射目录
+
+## 修改容器配置文件（重点）
+
+### 暂停 Docker 服务
+
+systemctl stop docker 
+
+### 进入 Docker 容器根目录配置文件目录下
+
+cd /var/lib/docker/containers/
+
+ls
+
+### 修改 config.v2.json
+
+vim config.v2.json
+
+## 重新启动 Docker 服务
+
+`systemctl stop docker`
+
+
+
+## 另一种方法是 使用 docker commit 命令生成新镜像

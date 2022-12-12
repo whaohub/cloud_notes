@@ -1,3 +1,5 @@
+[toc]
+
 # GDB
 
 ## -g 加入调试信息
@@ -59,6 +61,10 @@ gdb调试程序的时候打印变量值会出现<value optimized out> 情况,可
 
 * optimized out  https://www.xmodulo.com/print-optimized-out-value-gdb.html
 * What's the difference between a compiler's `-O0` option and `-Og` option https://stackoverflow.com/questions/63386189/whats-the-difference-between-a-compilers-o0-option-and-og-option/63386263#63386263
+
+##  gdb 不显示线程启动和退出
+
+可以使用`set print thread-events off`命令，这样当有线程产生和退出时，就不会打印提示信息
 
 Tags:
   gdb

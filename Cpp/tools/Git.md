@@ -1,6 +1,6 @@
 # Git
 
-[TOC]
+[toc]
 
 ## git clone时遇到问题
 
@@ -378,51 +378,52 @@ git log --all --decorate --oneline --graph
 git log --graph --decorate --oneline
 ```
 
-## Abort commit
+## 关于commit
 
-- 查看commit指定文件的修改信息
+### 查看commit指定文件的修改信息
 
 ```shell
 git show commitId
 git show commitId fileName
 ```
 
-- 撤销操作
-  
-  有时候我们提交完了才发现漏掉了几个文件没有添加，或者提交信息写错了。 此时，可以运行带有 `--amend` 选项的提交命令来重新提交：
-  
-  ```console
-  $ git commit --amend
-  ```
-  
-  这个命令会将暂存区中的文件提交。 如果自上次提交以来你还未做任何修改（例如，在上次提交后马上执行了此命令）， 那么快照会保持不变，而你所修改的只是提交信息。
-  
-  文本编辑器启动后，可以看到之前的提交信息。 编辑后保存会覆盖原来的提交信息。
-  
-  例如，你提交后发现忘记了暂存某些需要的修改，可以像下面这样操作：
-  
-  ```console
-  $ git commit -m 'initial commit'
-  $ git add forgotten_file
-  $ git commit --amend
-  ```
-  
-  最终你只会有一个提交——第二次提交将代替第一次提交的结果。
+### 撤销操作
 
-- 使用git rebase -i 来修改某一次的提交信息
-  
-  ```svg
-  git rebase -i master^^ // 假设我们当前在master分支
-  ```
-  
-  > 上面两个^是什么鬼？上述操作在分支名后总共可以放两个字符，一个是一个是~，具体规则如下
-  
-  - ^ 的用法：在 commit 的后面加一个或多个 ^ 号，可以把 commit 往回偏移，偏移的数量是 ^ 的数量。例如：master^^表示 当前master 指向的 commit 之前倒数第2个 commit
-  - ~ 的用法：在 commit 的后面加上 ~ 号和一个数，可以把 commit 往回偏移，偏移的数量是 ~ 号后面的数。例如：master~2 表示的和master^^是一样操作。
+有时候我们提交完了才发现漏掉了几个文件没有添加，或者提交信息写错了。 此时，可以运行带有 `--amend` 选项的提交命令来重新提交：
+
+```console
+$ git commit --amend
+```
+
+这个命令会将暂存区中的文件提交。 如果自上次提交以来你还未做任何修改（例如，在上次提交后马上执行了此命令）， 那么快照会保持不变，而你所修改的只是提交信息。
+
+文本编辑器启动后，可以看到之前的提交信息。 编辑后保存会覆盖原来的提交信息。
+
+例如，你提交后发现忘记了暂存某些需要的修改，可以像下面这样操作：
+
+```console
+$ git commit -m 'initial commit'
+$ git add forgotten_file
+$ git commit --amend
+```
+
+最终你只会有一个提交——第二次提交将代替第一次提交的结果。
+
+### 使用git rebase -i 来修改某一次的提交信息
+
+```svg
+git rebase -i master^^ // 假设我们当前在master分支
+```
+
+> 上面两个^ 是什么鬼？上述操作在分支名后总共可以放两个字符，一个是 ^ 一个是~，具体规则如下
+
+- ^ 的用法：在 commit 的后面加一个或多个 ^ 号，可以把 commit 往回偏移，偏移的数量是 ^ 的数量。例如：master^^表示 当前master 指向的 commit 之前倒数第2个 commit
+- ~ 的用法：在 commit 的后面加上 ~ 号和一个数，可以把 commit 往回偏移，偏移的数量是 ~ 号后面的数。例如：master~2 表示的和master^^是一样操作。
 
     eg: 想要修改的信息是倒数第二条
 
-       step1
+1. step1
+
 
 ```git
 git rebase -i branch master~2
@@ -430,14 +431,102 @@ git rebase -i branch master~2
 
  接下来可以操作的命令都在上图中显示了，我们要做的是编辑，并且要编辑的是第一行（它的排列顺序是一个正序排序，也就是说旧的commit信息在上面，新的commit在下面），我们将pick改为edit,推出保存
 
-step2 做想要修改的操作
+2. step2 做想要修改的操作
 
 ```git
 git add file
 git commit --amend -m "msg"
 ```
 
-step3 改完信息后，我们还需要git rebase --continue
+3. step3 改完信息后，我们还需要git rebase --continue (eg:修改提交的作者信息)
+
+```shell
+git commit --amend --author="Author Name <email@address.com>" 来修改commit
+```
+
+### commit 提交修改文件某一行
+
+You can use:
+
+```bash
+git add --patch <filename>
+```
+
+or for short:
+
+```bash
+git add -p <filename>
+```
+
+Git will break down your file into what it thinks are sensible "hunks" (portions of the file). It will then prompt you with this question:
+
+```
+Stage this hunk [y,n,q,a,d,/,j,J,g,s,e,?]?
+```
+
+Here is a description of each option:
+
+- y stage this hunk for the next commit
+
+- n do not stage this hunk for the next commit
+
+- q quit; do not stage this hunk or any of the remaining hunks
+
+- a stage this hunk and all later hunks in the file
+
+- d do not stage this hunk or any of the later hunks in the file
+
+- g select a hunk to go to
+
+- / search for a hunk matching the given regex
+
+- j leave this hunk undecided, see next undecided hunk
+
+- J leave this hunk undecided, see next hunk
+
+- k leave this hunk undecided, see previous undecided hunk
+
+- K leave this hunk undecided, see previous hunk
+
+- s split the current hunk into smaller hunks
+
+- e
+
+   
+
+  manually edit the current hunk
+
+  - You can then edit the hunk manually by replacing `+`/`-` by `#` (thanks [veksen](https://stackoverflow.com/users/1732521/veksen))
+
+- ? print hunk help
+
+If the file is not in the repository yet, you can first do `git add -N <filename>`. Afterwards you can go on with `git add -p <filename>`.
+
+Afterwards, you can use:
+
+- `git diff --staged` to check that you staged the correct changes
+- `git reset -p` to unstage mistakenly added hunks
+- `git commit -v` to view your commit while you edit the commit message.
+
+Note this is far different than the `git format-patch` command, whose purpose is to parse commit data into a `.patch` files.
+
+
+
+## git 显示差异
+
+### git 显示暂存区更改
+
+ It should just be:
+
+```
+git diff --cached
+```
+
+`--cached` means show the changes in the cache/index (i.e. staged changes) against the current `HEAD`. `--staged` is a synonym for `--cached`.
+
+`--staged` and `--cached` does not point to `HEAD`, just difference with respect to `HEAD`. If you cherry pick what to commit using `git add --patch` (or `git add -p`), `--staged` will return what is staged.
+
+`git diff --name-only --cached`    指定特定文件
 
 ## git add显示进度
 

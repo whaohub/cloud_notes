@@ -22,7 +22,7 @@ FFmpeg解码获得的AVPacket只包含视频压缩数据，并没有包含相关
 格式的视频添加相应的解码头信息，这样解码器（MediaCodec）才能正确解析
 每一个AVPacket里的视频数据。
 
-```
+```c
 const AVBitStreamFilter *absFilter = NULL;
 AVBSFContext *absCtx = NULL;
 AVCodecParameters *codecpar = NULL;

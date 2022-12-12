@@ -1,3 +1,5 @@
+[toc]
+
 # Ubuntu 环境配置
 
 ## 修改Ubuntu下终端输出为英文
@@ -37,6 +39,13 @@ trash-empty：清空回收站
 
 //定期清理30天
 (crontab -l ; echo "@daily $(which trash-empty) 30") | crontab -
+
+Custom rm to move files to Trash
+If you accidentally remove some files on a Linux system, it will be very difficult to restore them. Therefore, it’s a safe strategy to set the rm command to move files or folders to the Trash rather than to delete them. We can empty the Trash when needed later.
+
+This customization can be done with aliasing, which is a very handy tool on Linux (more on this later):
+
+alias rm='gio trash'
 ```
 
 ## 终端使用代理
@@ -59,28 +68,10 @@ ssh -o TCPKeepAlive=yes -o ServerAliveCountMax=20 -o ServerAliveInterval=15
 
 [chroot系统中，启动sshd -d 后，不能正常登录报错Ssh, error: openpty: No such file or directory - 嗷嗷鹿鸣[VX|dshoub] - 博客园](https://www.cnblogs.com/ip99/p/13224767.html)
 
-#### nfs server 配置
-
-[How to Install and Configure an NFS Server on Ubuntu 22.04](https://linuxhint.com/install-and-configure-nfs-server-ubuntu-22-04/)
-
-> showmount – show mount information for an NFS server
-
-showmount常用法:
+## Linux 网速测试
 
 ```shell
-showmount     (没有参数，列出所有挂载了共享目录的客户端client)
-
-showmount –a  (列出server上共享的目录，同时列出client上的挂载点)
-
-showmount –d  (列出被client挂载的目录)
-
-showmount –e （列出server端的共享目录）
+sudo apt install speedtest-cli
+speedtest-cli --secure
 ```
 
-通常可以这样查询某个Server：
-
-查询共享目录：`showmount –e serverIP(or serverName)`
-
-查询被哪些客户端挂载：`showmount –a`
-
-查看所有： `showmount`

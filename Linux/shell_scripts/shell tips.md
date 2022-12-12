@@ -39,4 +39,30 @@ cmd
 fi
 ```
 
-   [shell]:https://unix.stackexchange.com/questions/159513/what-are-the-shells-control-and-redirection-operators
+[shell]:https://unix.stackexchange.com/questions/159513/what-are-the-shells-control-and-redirection-operators
+
+```cpp
+FILE *fp;
+if (((fp = fopen("/sys/devices/system/cpu/cpu0/regs/identification/midr_el1", "rb")) != NULL))	
+{
+    fread(&s1, sizeof(unsigned int), 1, fp);
+  	fclose(fp);
+}
+//only cpuid
+if (0 == s1)
+{
+	return(false);
+}
+snprintf(cpu, sizeof(cpu), "%08X%08X", htonl(s1));	FILE *fp;
+    if (((fp = fopen("/sys/devices/system/cpu/cpu0/regs/identification/midr_el1", "rb")) != NULL))	
+	{
+        fread(&s1, sizeof(unsigned int), 1, fp);
+      	fclose(fp);
+	}
+	//only cpuid
+	if (0 == s1)
+	{
+		return(false);
+	}
+	snprintf(cpu, sizeof(cpu), "%08X%08X", htonl(s1));
+```

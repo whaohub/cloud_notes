@@ -30,19 +30,27 @@ int}’ [-Wformat=]
  warning: narrowing conversion of ‘((float)a.std::pair<_IplImage*, _VE_Rect_>::second._VE_Rect_::x * ratio_x)’ from ‘float’ to ‘int’ inside { } [-Wnarrowing]
 ```
 
+- string 问题
+
 ```c++
  warning: embedded ‘\0’ in format [-Wformat-contains-nul]
   std::sprintf(buf, "%s%s%03d\0", timeBuf, DevNo.c_str(), ID);
 ```
 
+The warning is there for a good reason: `snprintf` is going to think the `\0` marks the end of the string. If you actually need a null to be printed, you can't embed it directly into the string; C strings cannot contain null characters for this very reason. This is the most obvious workaround:
+
+```lisp
+snprintf(filePath,filePathSize,"%s%s%c",path.c_str(),s.c_str(),'\0')
+```
+
 - 成员变量 的声明顺序和构造函数初始化顺序不同
-  
+
   ```shell
    will be initialized after [-Wreorder]
   ```
 
 - 无符号有与有符号错误比较
-  
+
   ```shell
   : warning: comparison between signed and unsigned integer expressions [-Wsign-compare]
            if(pos = filepath.find_last_of("/") != -1)

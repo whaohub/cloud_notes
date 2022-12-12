@@ -91,6 +91,8 @@ eg:
 | possibly        | 可能泄露        |
 | still reachable | 未free, 但仍可用 |
 
+"definitely lost" are indeed relevant whether your application terminated normally or was interrupted by SIGINT
+
 ### Running your program under Memcheck
 
 基本：
@@ -136,8 +138,6 @@ cppcheck --enable=all [files or paths]，重点看error打印
 --enable=information   #打开信息消息
 --enable=all           #打开所有消息
 ```
-
-
 
 ## valgrind arm版本安装
 

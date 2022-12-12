@@ -44,17 +44,27 @@ ffmpeg -i input.avi -c:v libxvid output.avi
   
   [ref] https://blog.csdn.net/leixiaohua1020/article/details/84483279
 
+* 保存rtsp
+  
+  ```shell
+  ffmpeg -rtsp_transport tcp -an -re -i <rtsp_url> -c copy -f segment -segment_time 10 stream_piece_%d.mp4
+  ```
+  
+  
+
 * 读取制定文件图片
 
 ```
 ffmpeg -i "rtsp://:8554/" -y -f image2 -r 1/1 img%03d.jpg
 ```
 
-## - 解码toyuv
+- 解码toyuv
 
 ```shell
 ffmpeg -i video.mp4 -c:v rawvideo -pix_fmt yuv420p out.yuv
 ```
+
+
 
 ## ffmpeg 统计视频总帧数
 

@@ -1,3 +1,5 @@
+[toc]
+
 # FFMPEG
 
 ### FFmpeg 源码安装
@@ -85,9 +87,8 @@ AVFormatContext主要存储视音频封装格式中包含的信息；AVInputForm
 * AVFormatContext
   AVFormatContext是包含码流参数较多的结构体,AVFormatContext是一个贯穿始终的数据结构，很多函数都要用到它作为参数。它是FFMPEG解封装（flv，mp4，rmvb，avi）功能的结构体。下面看几个主要变量的作用（在这里考虑解码的情况）
   
-  ```
-  AVIOContext *pb：输入数据的缓存
-  ```
+```c
+AVIOContext *pb：输入数据的缓存
 
 unsigned int nb_streams：视音频流的个数
 
@@ -106,7 +107,7 @@ AVDictionary *metadata：元数据
 AVCodec是存储编解码器信息的结构体
 
 下面说一下最主要的几个变量：
-```
+```c
 
 const char *name：编解码器的名字，比较短
 
@@ -132,7 +133,7 @@ int priv_data_size：私有数据的大小
 * 音视频数据帧
 
 AVFrame 结构体用来表示未进行编码压缩的音视频数据，其中主要的几个字段：
-```
+```c
 
 typedef struct AVFrame
  {
@@ -168,7 +169,7 @@ typedef struct AVFrame
 
 ```
 常用的操作函数:
-```
+```c
 
 AVFrame *av_frame_alloc(void);  // 分配一个数据帧结构
 
@@ -184,7 +185,7 @@ void av_frame_unref(AVFrame *frame);  // 减少引用计数
 * 音视频数据包
 
 AVPacket 结构体用来表示压缩后的音视频数据，其中主要的几个字段：
-```
+```c
 
 typedef struct AVPacket
  {
@@ -203,7 +204,7 @@ typedef struct AVPacket
 
 ```
 常用操作函数:
-```
+```c
 
 AVPacket *av_packet_alloc(void);  // 分配一个数据包结构体
 
@@ -216,6 +217,8 @@ void av_init_packet(AVPacket *pkt);   // 初始化数据包结构,可选字段�
 int av_new_packet(AVPacket *pkt, int size); // 根据指定大小创建包结构中的数据
 
 ```
+
+
 
 Tags:
   FFMPEG, 库框架, 音视频

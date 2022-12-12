@@ -118,6 +118,16 @@ Also note that pressing . after a visual block operation will repeat that operat
 
 esc:set paste进入paste 模式后，按i 键进入插入模式，然后再粘帖，文本**格式**不会错乱了
 
+## vim 删除单词而不是剪切规避
+
+当使用`p`命令粘贴时会默认粘贴" "寄存器中的内容，使用`dd`后寄存器中的内容被覆盖，这是可以使用yank的寄存器`“0`中粘贴 eg:
+
+```shell
+yy
+dd
+"0p
+```
+
 ## Tmux 配置
 
 ```shell

@@ -68,3 +68,10 @@ docker 随开机启动:  docker update --restart=always 容器ID(或者容器名
 ```shell
 export $(cat /proc/1/environ |tr '\0' '\n' | xargs)
 ```
+
+## docker 镜像重命名
+
+```docker
+docker image tag #imageId myname/server:latest
+```
+

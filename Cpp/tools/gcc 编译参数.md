@@ -71,7 +71,13 @@ error: overflow in conversion from 'int' to 'char' changes value from '300' to '
 
 ### -Wfatal-errors
 
-在发生第一个错误时中止编译
+在发生第一个错误时中止编译 If you use CMake to compile your code, then this directive can be added to CMakeLists.txt:
+
+```cmake
+add_definitions(
+    -Wfatal-errors
+    )
+```
 
 Use every available and reasonable set of warning options. Some warning options only work with optimizations enabled, or work better the higher the chosen level of optimization is, for example [`-Wnull-dereference`](https://gcc.gnu.org/onlinedocs/gcc/Warning-Options.html#index-Wnull-dereference-367) with GCC.
 

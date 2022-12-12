@@ -1,3 +1,5 @@
+[toc]
+
 # linux 查看目标文件符号表
 
 ## nm command
@@ -148,5 +150,23 @@ This option is ignored for compatibility with the AIX version of nm. It takes on
 --help
 Show a summary of the options to nm and exit.
 ```
+
+
+
+## 查看共享对象是否包含debug段
+
+使用objdump查看是否包含debug段
+
+```shell
+objdump -h a.out | grep .debug_info
+```
+
+使用readelf 查看
+
+```shell
+readelf -S <binary> | grep .debug
+```
+
+
 
 ref: https://linux.die.net/man/1/nm
