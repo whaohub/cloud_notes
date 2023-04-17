@@ -56,17 +56,7 @@ export http_proxy=http://127.0.0.1:port
 export https_proxy=http://127.0.0.1:port
 ```
 
-## ssh 服务
-
-保持活跃
-
-```shell
-ssh -o TCPKeepAlive=yes -o ServerAliveCountMax=20 -o ServerAliveInterval=15
-```
-
-**在终端命令行中输入“sudo /etc/init.d/ssh restart”命令重启ssh服务即可**。
-
-[chroot系统中，启动sshd -d 后，不能正常登录报错Ssh, error: openpty: No such file or directory - 嗷嗷鹿鸣[VX|dshoub] - 博客园](https://www.cnblogs.com/ip99/p/13224767.html)
+https://www.cnblogs.com/ip99/p/13224767.html)
 
 ## Linux 网速测试
 
@@ -74,4 +64,34 @@ ssh -o TCPKeepAlive=yes -o ServerAliveCountMax=20 -o ServerAliveInterval=15
 sudo apt install speedtest-cli
 speedtest-cli --secure
 ```
+
+
+
+## 查看用户当前shell环境
+
+```shell
+echo $SHELL
+echo $0
+```
+
+## 用户没有sudo权限
+
+> *** not in the sudoers file
+
+```shell
+1. 	Open sudoers file using command : sudo nano /etc/sudoers
+
+2. 	Then add 
+	"YourUsername ALL=(ALL)  ALL" 
+	below the root user
+	
+	or
+	su -
+	usermod -aG sudo <username>
+	exit
+
+	Remember to reboot the virtual machine after giving yourself sudo righs 没有重启也cheng gong le
+```
+
+
 

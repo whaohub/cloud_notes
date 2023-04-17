@@ -75,3 +75,48 @@ export $(cat /proc/1/environ |tr '\0' '\n' | xargs)
 docker image tag #imageId myname/server:latest
 ```
 
+
+
+## docker批量删除
+
+删除所有容器
+
+> docker rm `docker ps -a -q`
+
+删除所有镜像
+
+> docker rmi `docker images -q`
+
+按条件删除镜像
+      删除悬浮镜像
+
+> docker image prune
+
+删除不提醒
+
+> docker image prune -f
+
+
+镜像名包含关键字
+
+> docker rmi --force `docker images | grep zoo-plus | awk '{print $3}'` 
+> 1.
+> 其中zoo-plus为关键字
+
+docker 启动所有的容器
+
+> docker start $(docker ps -a | awk '{ print $1}' | tail -n +2)
+
+docker 关闭所有的容器
+
+> docker stop $(docker ps -a | awk '{ print $1}' | tail -n +2)
+
+docker 删除所有的容器
+
+> docker rm $(docker ps -a | awk '{ print $1}' | tail -n +2)
+
+docker 删除所有的镜像
+
+> docker rmi $(docker images | awk '{print $3}' |tail -n +2)
+> 
+

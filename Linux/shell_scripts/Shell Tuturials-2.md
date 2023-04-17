@@ -1,3 +1,5 @@
+[toc]
+
 # Shell Tuturials-2
 
 ## printf 命令
@@ -31,6 +33,109 @@ do
     commandN
 done
 ```
+
+## while loop
+
+```shell
+#!/bin/bash
+
+while true; do
+  clear
+  free -m
+  sleep 1
+done
+
+```
+
+
+
+
+
+## shell function
+
+There are two typical ways of declaring a function. I prefer the second approach.
+
+```bash
+function function_name {
+   command...
+} 
+```
+
+or
+
+```bash
+function_name () {
+   command...
+} 
+```
+
+To call a function with arguments:
+
+```bash
+function_name "$arg1" "$arg2"
+```
+
+The function refers to passed arguments by their position (not by name), that is `$1`, `$2`, and so forth. **`$0`** is the name of the script itself.
+
+Example:
+
+```bash
+function_name () {
+   echo "Parameter #1 is $1"
+}
+```
+
+## switch case statement
+
+### Syntax
+
+```shell
+case word in
+   pattern1)
+      Statement(s) to be executed if pattern1 matches
+      ;;
+   pattern2)
+      Statement(s) to be executed if pattern2 matches
+      ;;
+   pattern3)
+      Statement(s) to be executed if pattern3 matches
+      ;;
+   *)
+     Default condition to be executed
+     ;;
+esac
+```
+
+根据word 匹配到要执行的语句，匹配失败执行默认语句,;;代表跳出case 语句，类似break
+
+A good use for a case statement is the evaluation of command line arguments as follows −
+
+```shell
+#!/bin/sh
+
+option="${1}" 
+case ${option} in 
+   -f) FILE="${2}" 
+      echo "File name is $FILE"
+      ;; 
+   -d) DIR="${2}" 
+      echo "Dir name is $DIR"
+      ;; 
+   *)  
+      echo "`basename ${0}`:usage: [-f file] | [-d directory]" 
+      exit 1 # Command to come out of the program with status 1
+      ;; 
+esac 
+```
+
+Here is a sample run of the above program −
+
+```shell
+$./test.sh
+test.sh: usage: [ -f filename ] | [ -d directory ]
+```
+
+[ref ]: https://www.tutorialspoint.com/unix/case-esac-statement.htm
 
 [Shell Tutorials-1](simplenote://note/13b685ca-cf98-4042-a289-9ab52bfd113c)
 

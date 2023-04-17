@@ -505,6 +505,11 @@ cat /proc/sys/fs/file-nr
 #查看单个进程允许打开的最大 fd 数量.
 ulimit -n
 32768
+
+查询某个进程已经开启的文件句柄
+lsof -p 进程pid | wc -l
+查看所有进程各自打开的文件数
+lsof -n|awk ‘{print $2}’|sort|uniq -c|sort -nr|more
 ```
 
 ## dstat 命令
@@ -546,3 +551,30 @@ dstat [-afv] [options..] [delay [count]]
 ```shell
 [root@iZ23uulau1tZ ~] dstat -tsp --socket --fs
 ```
+
+
+
+### Linux使用hdparm命令来测试SSD硬盘性能
+
+> 说明：使用hdparm可以测试SSD硬盘性能，数据准确。
+
+## 1、安装
+
+```javascript
+yum install hdparm   #centos
+apt-get install hdparm   #debian,ubuntu
+```
+
+复制
+
+## 2、使用
+
+```javascript
+hdparm -t /dev/xvda
+```
+
+### Linux stress命令详解
+
+stress 命令主要用来模拟系统负载较高时的场景
+
+https://cloud.tencent.com/developer/article/1791641

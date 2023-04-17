@@ -139,19 +139,25 @@ cppcheck --enable=all [files or paths]，重点看error打印
 --enable=all           #打开所有消息
 ```
 
-## valgrind arm版本安装
+## valgrind massif 内存占用分析
 
-本文记录的应用场景是使用 Valgrind 调试嵌入式平台（目标系统）如 aarch64 下的应用，宿主系统的环境是 Linux X64。首先获取 Valgrind 的源码，在宿主机上交叉编译：
+https://cloud.tencent.com/developer/article/1383844
 
-| 1<br><br>2<br><br>3<br><br>4<br><br>5 | $ apt-get source valgrind<br><br>$ cd valgrind<br><br>$ ./configure --host=aarch64-linux-gnu --prefix=$HOME/output/valgrind-aarch64 \<br><br>  CC=aarch64-linux-gnu-gcc CXX=aarch64-linux-gnu-c++<br><br>$ make && make install |
-| ------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+https://valgrind.org/docs/manual/ms-manual.html
 
-注：这里的 –host 参数指定的是目标系统的架构， –prefix 参数指定软件的安装路径。
 
-然后将编译好的 valgrind 拷贝到目标机上，如果拷贝到目标机上的路径和上面编译时指定的 –prefix 不一致，运行时需要设置 valgrind 运行时的 LIB 路径：
 
-| 1   | $ export VALGRIND_LIB=/tmp/nfs/valgrind-aarch64/libexec/valgrind |
-| --- | ---------------------------------------------------------------- |
+```cpp
+valgrind --tool=massif --time-unit=B --detailed-freq=1 ./test 
+```
+
+
+
+## valgrind Helgrind: a thread error detector
+
+https://valgrind.org/docs/manual/hg-manual.html
+
+
 
 Tags:
   Valgrind

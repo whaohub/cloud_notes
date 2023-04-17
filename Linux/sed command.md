@@ -88,6 +88,7 @@ sed "s/unix/linux/" sed.txt
    - Output:
 
 ```
-    unix is great os. unix is opensource. 
+
+unix is great os. unix is opensource. 
     linux is free os.learn operating system.unix linux which one you choose.unix is easy to learn.unix is a multiuser os.Learn unix .unix is a powerful.
 ```

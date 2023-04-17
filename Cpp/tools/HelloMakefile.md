@@ -186,7 +186,7 @@ subsystem:
 
 ## Exclude source file in compilation using Makefile
 
-从makefile编译列表中除去特别的源文件
+- 从makefile编译列表中除去特别的源文件
 
 ```makefile
 SRC_FILES := $(wildcard src/*.cpp)
@@ -194,6 +194,20 @@ SRC_FILES := $(filter-out src/bar.cpp, $(SRC_FILES))
 ```
 
 [c++ - Exclude source file in compilation using Makefile - Stack Overflow](https://stackoverflow.com/questions/10276202/exclude-source-file-in-compilation-using-makefile)
+
+- makefile `or` contiation
+
+```makefile
+if you want to check if x=4 or x=6
+
+ifeq ($(x),$(filter $(x),4 6))   
+   x is either 4 or 6. do whatever you like with it
+else  
+   x is neither 4 nor 6  
+endif
+```
+
+
 
 ## makefile 导出宏区分编译
 

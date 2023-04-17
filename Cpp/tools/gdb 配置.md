@@ -14,35 +14,49 @@ You neglected to specify -g on the link line (some platforms require -g both at 
 You have a "stray" -s somewhere on your link line (which strips the final executable).
 ```
 
-## 断点
-
-保存断点 
-
-```
-save breakpoints gdb.cfg
-Saved to file 'gdb.cfg'.
-```
-
-使用“source”命令restore（恢复，还原）它们（断点）
-
-```
-(gdb) source gdb.cfg 
-```
-
 ## gdb调试记住相关配置参数
 
 在当前用户下新建.gdbinit文件
 将需要设置的参数在.gdbinit中设置好
 
-```
+```shell
 # 每次调试时, 如果程序需要指定参数, 也可以在.gdbinit中提前
 # 配置好, 这样每次gdb时就不用重复输入了
 # 这里根据自己要调试程序的参数自定义设置, 
 # 不需要的可以删除或使用"#"注释掉
- set args -D db1 start
-
-
+set args -D db1 start
+set history save on  # saves the command history between sessions
+set pagination off   # if the screen is too long, you won't
+                     # need to press y to scroll it
+set print pretty on  # displays values of classes, structs etc. nicely
+set confirm off      # you won't need to confirm commands
+set print thread-events off # 这样当有线程产生和退出时，就不会打印提示信息
 directory ../ki/    //指定源码搜索路径
+```
+
+
+
+- gdb 配置提示报错
+
+```
+
+GNU gdb (GDB) 7.5-ubuntu
+Copyright (C) 2012 Free Software Foundation, Inc.
+License GPLv3+: GNU GPL version 3 or later <http://gnu.org/licenses/gpl.html>
+This is free software: you are free to change and redistribute it.
+There is NO WARRANTY, to the extent permitted by law.  Type "show copying"
+and "show warranty" for details.
+This GDB was configured as "x86_64-linux-gnu".
+For bug reporting instructions, please see:
+<http://www.gnu.org/software/gdb/bugs/>.
+warning: File "/home/user1/test/.gdbinit" auto-loading has been declined by your `auto-load safe-path' set to "$debugdir:$datadir/auto-load". 
+```
+
+解决: In my case I had no `~/.gdbinit` file. The solution was creating this file containing two lines specifying auto-load-safe-path(s).
+
+```bash
+add-auto-load-safe-path <path1>
+add-auto-load-safe-path <path2>
 ```
 
 * set environment
@@ -62,9 +76,19 @@ gdb调试程序的时候打印变量值会出现<value optimized out> 情况,可
 * optimized out  https://www.xmodulo.com/print-optimized-out-value-gdb.html
 * What's the difference between a compiler's `-O0` option and `-Og` option https://stackoverflow.com/questions/63386189/whats-the-difference-between-a-compilers-o0-option-and-og-option/63386263#63386263
 
-##  gdb 不显示线程启动和退出
+## gdb 忽略sigpipe
 
-可以使用`set print thread-events off`命令，这样当有线程产生和退出时，就不会打印提示信息
+```shell
+gdb) handle SIGPIPE nostop
+```
 
-Tags:
+## gdb config sample
+
+### 编译参数查看完整的堆栈信息
+
+Enable `-fno-omit-frame-pointer` on your compiler. This will enable you to see the full call stack, otherwise smaller functions might be missing. This option has minimal performance impact on x86-64 and should be used always because it allows simpler debugging on the field
+
+
+
+Tags: 0x80000000
   gdb

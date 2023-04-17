@@ -303,6 +303,16 @@ GitHub已经为我们准备了各种配置文件，只需要组合一下就可�
     json/makefile
 ```
 
+- 忽略文件权限
+
+  ```shell
+  我们可以使用如下方法让git忽略文件权限，执行以下命令
+  
+  git config core.filemode false
+  ```
+
+  
+
 #### 已经被跟踪文件如何忽略
 
 不仅将文件添加到 Git 仓库，还推送到远程仓库了。并且其他合作的小伙伴已经从远程仓库拉取了更新。这个时候才发现某些文件需要忽略。
@@ -535,6 +545,20 @@ git diff --cached
 ```shell
 git add --verbose . > ../progress.txt & percent=0; while [[ $percent -le 99 && $percent -ge 0 ]]; do num1=$(cat ../progress.txt | wc -l); num2=$(find . -type f -not -path "./.git/*" | wc -l); percent=$((num1*100 / (num2 - 3) )); echo $percent"%"; sleep 1; done; echo "DONE"; sleep 1; rm ../progress.txt
 ```
+
+
+
+## git tag
+
+### Switched to a new branch 'v3.0-branch'
+
+```git
+git checkout tags/v3.0 -b v3.0-branch
+```
+
+## 
+
+
 
 Tags:
   git

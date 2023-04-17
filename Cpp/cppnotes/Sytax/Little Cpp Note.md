@@ -39,6 +39,24 @@ auto iter = std::find_if(m_dqImage.cbegin(), m_dqImage.cend(),
                                  { return temptime - element.first >= 0 && temptime - element.first <= 3; });
 ```
 
+
+
+## ck 函数
+
+```cpp
+inline bool check(int e, int iLine, const char *szFile) {
+    if (e < 0) {
+        LOG(ERROR) << "General error " << e << " at line " << iLine << " in file " << szFile;
+        return false;
+    }
+    return true;
+}
+
+#define ck(call) check(call, __LINE__, __FILE__)
+```
+
+
+
 ## 遇到的问题记录
 
 char int 保存数值问题

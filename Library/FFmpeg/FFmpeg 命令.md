@@ -99,6 +99,16 @@ file '/home/file1.mp4'
 ffmpeg -f concat -safe 0 -i fileList.txt -c copy mergedVideo.mp4
 ```
 
+## delete audio
+
+```shell
+ffmpeg -i $input_file -c copy -an $output_file
+```
+
+
+
+
+
 ## ffmpeg slow down /fast video
 
 ```she
@@ -126,6 +136,29 @@ FFREPORT=file=ffreport.log:level=32 ffmpeg -i ....
 
 - ffreport.log : 生成的日志文件
 - level: 日志级别(32:info)
+
+## ffmpeg check stream
+
+you can use `ffprobe`:
+
+```php
+ffprobe -v quiet -print_format json -show_streams rtmp://example.com/stream
+```
+
+You'll get a return code `1` if the command failed or `0` and a JSON string containing the detected streams on success:
+
+```json
+{
+    "index": 1,
+    "codec_name": "aac",
+    "codec_long_name": "AAC (Advanced Audio Coding)",
+    "profile": "LC",
+    "codec_type": "audio",
+    ...
+}
+```
+
+ref: https://stackoverflow.com/questions/31451716/how-to-check-rtmp-live-stream-is-on-or-off
 
 Tags:
   FFmpeg

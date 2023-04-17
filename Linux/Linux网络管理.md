@@ -52,6 +52,14 @@ sudo ufw allow to any //开放其他所有端口
 tcpdump -v -X -i enp3s0f0 port 1883 -nnA
 ```
 
+```shell
+tcpdump -i -A eth1 host 10.64.45.53 and port 8080
+
+-A 查看详细信息
+```
+
+
+
 ## nc 监听端口
 
 ****
@@ -60,6 +68,45 @@ tcpdump -v -X -i enp3s0f0 port 1883 -nnA
 
 查看socket使用情况
 
-```svg
+```shell
  netstat -na | awk '/^tcp/ {++S[$NF]} END {for(a in S) print a, S[a]}'
 ```
+
+
+
+## ss 命令
+
+```
+-h：显示帮助信息；
+
+-V：显示指令版本信息；
+
+-n：不解析服务名称，以数字方式显示；
+
+-a：显示所有的套接字；
+
+-l：显示处于监听状态的套接字；
+
+-o：显示计时器信息；
+
+-m：显示套接字的内存使用情况；
+
+-p：显示使用套接字的进程信息；
+
+-i：显示内部的TCP信息；
+
+-4：只显示ipv4的套接字；
+
+-6：只显示ipv6的套接字；
+
+-t：只显示tcp套接字；
+
+-u：只显示udp套接字；
+
+-d：只显示DCCP套接字；
+
+-w：仅显示RAW套接字；
+
+-x：仅显示UNIX域套接字。
+```
+

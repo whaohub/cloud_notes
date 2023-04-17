@@ -30,3 +30,13 @@ int avformat_open_input(AVFormatContext **ps,
 ```
 
 [avformat_open_input](https://blog.csdn.net/leixiaohua1020/article/details/8661601)
+
+
+
+## ffmpeg error string
+
+```c
+char errorBuf[1024];
+av_make_error_string(errorBuf, 1024, errorcode);
+```
+

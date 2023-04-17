@@ -91,7 +91,7 @@ vim config.v2.json
 
 ## 重新启动 Docker 服务
 
-`systemctl stop docker`
+`systemctl start docker`
 
 
 

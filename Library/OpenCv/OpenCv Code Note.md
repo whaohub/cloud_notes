@@ -48,5 +48,16 @@ or
 Mat(const IplImage* img, bool copyData=false);
 ```
 
+## unsigned char * to mat
+
+```cpp
+unsigned char * output;//image data`
+cv::Mat TempMat = cv::Mat(h, w, CV_8UC1, output);
+```
+
+
+
+
+
 Tags:
   opencv

@@ -74,7 +74,7 @@ int climbStairs(int n)
 思路:使用动态规划第n阶台阶的前一次可能是爬了1或2,以此类推f(x)=f(x-1)+f(x-2);第n阶台阶是前一次爬了1阶或俩阶方法的和，没阶台阶皆是如此，所以设ret第一阶台阶为1,记录f(x-1)和f(x-2)的方法和。
 
 时间复杂度：循环执行 n 次，每次花费常数的时间代价，故渐进时间复杂度为 O(n)O(n)。
-空间复杂度：这里只用了常数个变量作为辅助空间，故渐进空间复杂度为 O(1)O(1)。
+空间复杂度：这里只用了常数个变量作为辅助空间，故渐进空间复杂度为 O(1)。
 
 
 
@@ -480,3 +480,294 @@ public:
 
 如果某个数字**等于** `-214748364`，还需要跟最小数的末尾比较，即看它是否小于`8`
 
+
+
+## 11 删除链表的倒数第 N 个结点
+
+给你一个链表，删除链表的倒数第 `n` 个结点，并且返回链表的头结点。
+
+ 
+
+**示例 1：**
+
+![img](https://assets.leetcode.com/uploads/2020/10/03/remove_ex1.jpg)
+
+```
+输入：head = [1,2,3,4,5], n = 2
+输出：[1,2,3,5]
+```
+
+
+
+```cpp
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode() : val(0), next(nullptr) {}
+ *     ListNode(int x) : val(x), next(nullptr) {}
+ *     ListNode(int x, ListNode *next) : val(x), next(next) {}
+ * };
+ */
+class Solution 
+{
+public:
+    unsigned int get_length(const ListNode*  head)
+    {
+        unsigned int length = 0;
+        const ListNode* travel = head;
+        while(travel)
+        {
+            length++;
+            travel = travel->next;
+        }
+        return length;
+    }
+    ListNode* removeNthFromEnd(ListNode* head, int n) 
+    {
+        if(!head)
+        {
+            return nullptr;
+        }
+        unsigned int length = get_length(head);
+        ListNode* dummy = new ListNode(0, head);
+        ListNode* cur = dummy;
+        for(int i = 0;i < length - n ; ++i)
+        {
+            cur = cur->next;
+        }
+        cur -> next= cur->next->next;
+        ListNode* ans =  dummy->next;
+        delete dummy;
+        return ans;
+    }
+};
+```
+
+- 思路:获取链表长度，添加一个哑节点（便于删除头节点），遍历链表查找要删除的前一个节点
+- 
+
+## 12  找出字符串中第一个匹配项的下标
+
+给你两个字符串 `haystack` 和 `needle` ，请你在 `haystack` 字符串中找出 `needle` 字符串的第一个匹配项的下标（下标从 0 开始）。如果 `needle` 不是 `haystack` 的一部分，则返回 `-1` 。
+
+ 
+
+**示例 1：**
+
+```
+输入：haystack = "sadbutsad", needle = "sad"
+输出：0
+解释："sad" 在下标 0 和 6 处匹配。
+第一个匹配项的下标是 0 ，所以返回 0 。
+```
+
+```cpp
+
+class Solution 
+{
+public:
+    int strStr(string haystack, string needle)
+    {
+        size_t hay_size = haystack.size();
+        size_t needle_size = needle.size();
+        
+        for(size_t i = 0 ; i + needle_size <= hay_size;++i)
+        {
+            bool flag = true;
+            for(size_t j = 0;j < needle_size; ++j)
+            {
+                if(haystack[i + j] != needle[j])
+                {
+                    flag = false;
+                }
+            }
+            if(flag)
+            {
+                return i;
+            }
+        }
+        return -1;
+    }
+};
+```
+
+- 思路：暴力遍历从长字符串中查找字串，第一次找到后返回
+- 算法复杂度：O(m*n) 最坏字符串遍历结束
+- 空间复杂度：O(1)
+
+## 13  快乐数
+
+编写一个算法来判断一个数 `n` 是不是快乐数。
+
+**「快乐数」** 定义为：
+
+- 对于一个正整数，每一次将该数替换为它每个位置上的数字的平方和。
+- 然后重复这个过程直到这个数变为 1，也可能是 **无限循环** 但始终变不到 1。
+- 如果这个过程 **结果为** 1，那么这个数就是快乐数。
+
+如果 `n` 是 *快乐数* 就返回 `true` ；不是，则返回 `false` 。
+
+**示例 1：**
+
+```
+输入：n = 19
+输出：true
+解释：
+12 + 92 = 82
+82 + 22 = 68
+62 + 82 = 100
+12 + 02 + 02 = 1
+```
+
+**示例 2：**
+
+```
+输入：n = 2
+输出：false
+```
+
+
+
+```cpp
+class Solution 
+{
+public:
+    int bitSquareSum(int n)
+    {
+        int sum = 0;
+        while(n)
+        {
+            int num = n % 10;
+            sum += num * num;
+            n /= 10;
+        }
+        return sum;
+    }
+
+    bool isHappy(int n) 
+    {
+        int slow = n;
+        int fast = n;
+        do
+        {
+            slow = bitSquareSum(slow);
+            fast = bitSquareSum(fast);
+            fast = bitSquareSum(fast);
+        }while(slow != fast);
+
+        return slow==1;
+    }
+};
+```
+
+- 思路：如何破循环，如果不是快乐数，就会无限循环，也就是会陷入链表环，等同于查找链表是否有环，如果是快乐数，那么快慢指针结果都将是1,则退出循环
+
+
+
+## 14 回文数
+
+给你一个整数 `x` ，如果 `x` 是一个回文整数，返回 `true` ；否则，返回 `false` 。
+
+回文数是指正序（从左向右）和倒序（从右向左）读都是一样的整数。
+
+- 例如，`121` 是回文，而 `123` 不是。
+
+**示例 1：**
+
+```
+输入：x = 121
+输出：true
+```
+
+```cpp
+class Solution 
+{
+public:
+    bool isPalindrome(int x) 
+    {
+        if(x < 0 || (x % 10 == 0 && x != 0))
+        {
+            return false;
+        }
+
+        int revertnum = 0;
+        
+        while(x > revertnum)
+        {
+            revertnum = revertnum * 10 + x % 10;
+            x /= 10;
+        }
+        // 当数字长度为奇数时，我们可以通过 revertedNumber/10 去除处于中位的数字。
+        // 例如，当输入为 12321 时，在 while 循环的末尾我们可以得到 x = 12，revertedNumber = 123，
+        // 由于处于中位的数字不影响回文（它总是与自己相等），所以我们可以简单地将其去除
+        return x == revertnum || x == revertnum/10;
+    }
+};
+```
+
+- 思路：前置条件: 负数末尾为0的数不可能是回文数; 对数进行半反转比较(easy)
+
+
+
+## 15环形链表 II
+
+给定一个链表的头节点  `head` ，返回链表开始入环的第一个节点。 *如果链表无环，则返回 `null`。*
+
+如果链表中有某个节点，可以通过连续跟踪 `next` 指针再次到达，则链表中存在环。 为了表示给定链表中的环，评测系统内部使用整数 `pos` 来表示链表尾连接到链表中的位置（**索引从 0 开始**）。如果 `pos` 是 `-1`，则在该链表中没有环。**注意：`pos` 不作为参数进行传递**，仅仅是为了标识链表的实际情况。
+
+**不允许修改** 链表。
+
+
+
+ 
+
+**示例 1：**
+
+![img](https://assets.leetcode.com/uploads/2018/12/07/circularlinkedlist.png)
+
+```
+输入：head = [3,2,0,-4], pos = 1
+输出：返回索引为 1 的链表节点
+解释：链表中有一个环，其尾部连接到第二个节点。
+```
+
+```cpp
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode(int x) : val(x), next(NULL) {}
+ * };
+ */
+class Solution 
+{
+public:
+    ListNode *detectCycle(ListNode *head) 
+    {
+        if(!head)
+            return nullptr;
+
+        std::unordered_set<ListNode *> visited;
+
+        while(head)
+        {
+            if(visited.count(head))
+            {
+                return head;
+            }
+            visited.insert(head);
+            head = head->next;
+        }
+        return nullptr;
+    }
+};
+```
+
+思路:使用hash表遍历一次链表，如果重复就是有环，且返回重复节点即满足要求
+
+- 时间复杂度:O(n)
+
+- 空间复杂度:O(n)

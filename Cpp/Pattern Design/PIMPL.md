@@ -103,6 +103,8 @@ void Test::Display()
 }
 ```
 
-[stackoverflow]:[https://stackoverflow.com/questions/8972588/is-the-pimpl-idiom-really-used-in-practice]()
-[cpp_references]:[https://www.apiref.com/cpp-zh/cpp/language/pimpl.html]()
-[geeksforgeeks]:[https://www.geeksforgeeks.org/pimpl-idiom-in-c-with-examples/]()
+[stackoverflow]:https://stackoverflow.com/questions/8972588/is-the-pimpl-idiom-really-used-in-practice()
+
+[cpp_references]:https://www.apiref.com/cpp-zh/cpp/language/pimpl.html()
+
+[geeksforgeeks]:https://www.geeksforgeeks.org/pimpl-idiom-in-c-with-examples/()
