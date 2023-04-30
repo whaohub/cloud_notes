@@ -194,5 +194,38 @@ std::string被定义为std::basic_string<char>，这意味着它是字符的集�
 | 1  <br>2 | std::string s = u8"1 ×?×?×?×? Hello";  <br>std::cout << s << std::endl; |
 | -------- | ----------------------------------------------------------------------- |
 
-Tags:
-  g++, gcc, 编译参数
+
+
+## gcov 代码测试覆盖率
+
+gcc编译加入-fprofile-arcs -ftest-coverage 参数生成二进制程序，执行测试用例生成代码覆盖率信息
+
+程序在编译的时候添加了两个编译选项 `-fprofile-arcs` and `-ftest-coverage`。在编译成功后，不仅生成了 `main` and `.o` 文件，同时还生成了两个 `.gcno` 文件.
+
+```shell
+❯ g++  -fprofile-arcs -ftest-coverage remove_element.cpp -o remove_element
+```
+
+1. 在有了编译和运行时候生成的 `.gcno` 和 `.gcda` 文件后，执行命令 `gcov remove_element.cpp ` 即可生成 `.gcov` 代码覆盖率文件。
+
+也可使用gcov命令查看
+
+```shell
+gcov -dtkrb remove_element.gcov 
+```
+
+
+
+2. 有了代码覆盖率 `.gcov` 文件，通过 [LCOV](http://ltp.sourceforge.net/coverage/lcov.php) 生成可视化代码覆盖率报告
+
+```shell
+lcov --capture --directory ./test --output-file coverage.info //指定目录
+# 2. 根据这个数据文件生成报告
+genhtml coverage.info --output-directory out
+
+# 查看out中生成的index.html
+see index.h t m
+```
+
+
+

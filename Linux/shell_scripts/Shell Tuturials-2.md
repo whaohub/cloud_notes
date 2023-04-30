@@ -47,6 +47,27 @@ done
 
 ```
 
+sample: 循环打印倒计时
+
+```shell
+#!/bin/bash
+
+# Set the countdown duration in seconds
+duration=10
+
+# Loop through the countdown
+for ((i=$duration; i>=1; i--))
+do
+# this can be achieved using a carriage return \r:可以覆盖之前输出
+  printf "%d/5\r" "$i"   # 可以覆盖之前输出
+  echo "Countdown: $i seconds remaining"
+  sleep 1
+done
+
+# Display the final message
+echo "Countdown complete!"
+```
+
 
 
 

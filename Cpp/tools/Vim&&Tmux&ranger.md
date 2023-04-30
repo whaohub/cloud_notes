@@ -191,3 +191,43 @@ Plug 'christoomey/vim-tmux-navigator'
 <ctrl-K>切换到上方窗口
 <ctrl-/>切换到刚刚的窗口
 ```
+
+## telescope.nvim
+
+文件搜索插件 https://github.com/nvim-telescope/telescope.nvim
+
+```
+依赖
+sudo apt install fd-find
+sudo apt install ripgrep
+
+
+Plug 'nvim-lua/plenary.nvim'
+Plug 'nvim-telescope/telescope.nvim', { 'tag': '0.1.1' }
+```
+
+## ranger 基本配置
+
+### ranger 基本安装
+
+```shell
+$ sudo apt-get install ranger     # ranger 的主程序
+$ sudo apt-get install caca-utils # img2txt 图片
+$ sudo apt-get install highlight  # 代码高亮
+$ sudo apt-get install atool　    # 存档预览
+$ sudo apt-get install w3m        # html页面预览
+$ sudo apt-get install poppler    # pdf预览
+$ sudo apt-get install mediainfo  # 多媒体文件预览
+```
+
+## **三、预览配置**
+
+首先需要下载能够将对应格式的文件转化为txt的程序：
+
+```text
+$ sudo apt-get install catdoc     # doc预览
+$ sudo apt-get install docx2txt   # docx预览
+$ sudo apt-get install xlsx2csv   # xlsx预览
+```
+
+**https://www.52gvim.com/post/ranger-tool-usage**

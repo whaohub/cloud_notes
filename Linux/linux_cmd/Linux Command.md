@@ -567,11 +567,21 @@ apt-get install hdparm   #debian,ubuntu
 
 复制
 
-## 2、使用
+## 2、使用 测试磁盘读取速度
 
-```javascript
+```shell
 hdparm -t /dev/xvda
 ```
+
+## 测试磁盘写速度
+
+```shell
+time dd if=/dev/zero of=/test.dbf bs=8k count=300000
+```
+
+
+
+
 
 ### Linux stress命令详解
 
