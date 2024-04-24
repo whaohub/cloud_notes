@@ -1,52 +1,51 @@
-[toc]
-
 # FFMPEG
 
-### FFmpeg 源码安装
+\[toc]
 
-1. 下载源码
-   
-   ```shell
-   git clone https://github.com/FFmpeg/FFmpeg  //官网下载或使用官网镜像地址下载
-   ```
+## FFMPEG
 
-2. 安装yasm汇编器
-   
-   ```shell
-   sudo apt install yasm
-   ```
+#### FFmpeg 源码安装
 
+1.  下载源码
+
+    ```shell
+    git clone https://github.com/FFmpeg/FFmpeg  //官网下载或使用官网镜像地址下载
+    ```
+2.  安装yasm汇编器
+
+    ```shell
+    sudo apt install yasm
+    ```
 3. 编译打开debug安装
+4.  安装sdl，否则无法编译出ffplay
 
-4. 安装sdl，否则无法编译出ffplay
-   
-   ```shell
-   sudo apt install libsdl2-dev
-   ```
+    ```shell
+    sudo apt install libsdl2-dev
+    ```
+5.  一定要加--disable-stripping， 如果不加此选项，[ffmpeg](https://so.csdn.net/so/search?q=ffmpeg\&spm=1001.2101.3001.7020)在编译时，会使用strip去掉符号信息
 
-5. 一定要加--disable-stripping， 如果不加此选项，[ffmpeg](https://so.csdn.net/so/search?q=ffmpeg&spm=1001.2101.3001.7020)在编译时，会使用strip去掉符号信息
-   
-   ```shell
-   sudo ./configure --enable-sdl --enable-shared --enable-debug --disable-optimizations --disable-asm --disable-stripping --prefix=/opt/ffmpeg
-   
-   sudo make && sudo make install 
-   ```
+    ```shell
+    sudo ./configure --enable-sdl --enable-shared \
+                    --enable-debug --disable-optimizations \
+                    --disable-asm --disable-stripping \
+                    --prefix=/opt/ffmpeg
 
-6. config path 
-   
-   ```shell
-   # configure the PATH param
-   echo "# Add FFMpeg bin & library paths:" >> ~/.bashrc
-   echo "export PATH=/usr/local/ffmpeg/bin:$PATH" >> ~/.bashrc
-   echo "export LD_LIBRARY_PATH=/usr/local/ffmpeg/lib:$LD_LIBRARY_PATH" >> ~/.bashrc
-   source ~/.bashrc
-   ```
-   
-   ```
-   
-   ```
+    sudo make && sudo make install 
+    ```
+6.  config path
 
-### 一 FFMPEG 中主要库
+    ```shell
+    # configure the PATH param
+    echo "# Add FFMpeg bin & library paths:" >> ~/.bashrc
+    echo "export PATH/opt/ffmpeg/ffmpeg/bin:$PATH" >> ~/.bashrc
+    echo "export PKG_CONFIG_PATH=/opt/ffmpeg/lib/pkgconfig:$PKG_CONFIG_PATH" >> ~/.bashrc
+    source ~/.bashrc
+    ```
+
+    ```
+    ```
+
+#### 一 FFMPEG 中主要库
 
 1. libavformat: 媒体文件容器格式处理库。这个库进行码流文件解析和混流。
 2. libavcodec: 编解码器库。所有的音视频编码和解码操作需要使用这个库。
@@ -58,13 +57,11 @@
 
 在这几个库中，前四个库比较重要，是大部分的音视频项目中都会使用到的，而且对于滤镜、特效操作，大部分项目都会根据自己需求专门开发这方面的算法，所以较少直接使用FFMPEG的这个库，设备相关操作也是大部分直接调用操作系统平台API
 
-### 二 FFMPEG 重点数据结构和基础
+#### 二 FFMPEG 重点数据结构和基础
 
 * a) 解协议(http, rtsp, rtmp,mms)
 
-AVIOContext, URLProtocol, URLContext主要存储视音频使用的协议的类型以及状态。URLProtocol存储输
-入视音频使用的封装格式。每种协议都对应一个URLProtocol结构。（注意：FFMPEG中文件也被当做一种协
-议“file”
+AVIOContext, URLProtocol, URLContext主要存储视音频使用的协议的类型以及状态。URLProtocol存储输 入视音频使用的封装格式。每种协议都对应一个URLProtocol结构。（注意：FFMPEG中文件也被当做一种协 议“file”
 
 * b) 解封装(flv, avi,rmvb,mp4)
 
@@ -76,17 +73,14 @@ AVFormatContext主要存储视音频封装格式中包含的信息；AVInputForm
 
 * d) 存数据
 
-视频一般每个结构是存一帧;音频可能有好几帧
-解码前数据:AVPacket
-解码后数据:AVFrame
+视频一般每个结构是存一帧;音频可能有好几帧 解码前数据:AVPacket 解码后数据:AVFrame
 
 对应关系如下:
 
 [![HqgfbT.md.jpg](https://s4.ax1x.com/2022/02/19/HqgfbT.md.jpg)](https://imgtu.com/i/HqgfbT)
 
-* AVFormatContext
-  AVFormatContext是包含码流参数较多的结构体,AVFormatContext是一个贯穿始终的数据结构，很多函数都要用到它作为参数。它是FFMPEG解封装（flv，mp4，rmvb，avi）功能的结构体。下面看几个主要变量的作用（在这里考虑解码的情况）
-  
+* AVFormatContext AVFormatContext是包含码流参数较多的结构体,AVFormatContext是一个贯穿始终的数据结构，很多函数都要用到它作为参数。它是FFMPEG解封装（flv，mp4，rmvb，avi）功能的结构体。下面看几个主要变量的作用（在这里考虑解码的情况）
+
 ```c
 AVIOContext *pb：输入数据的缓存
 
@@ -103,10 +97,11 @@ int bit_rate：比特率（单位bps，转换为kbps需要除以1000）
 AVDictionary *metadata：元数据
 
 ```
-* 编解码器信息
-AVCodec是存储编解码器信息的结构体
+
+* 编解码器信息 AVCodec是存储编解码器信息的结构体
 
 下面说一下最主要的几个变量：
+
 ```c
 
 const char *name：编解码器的名字，比较短
@@ -130,9 +125,11 @@ const uint64_t *channel_layouts：支持的声道数（仅音频）
 int priv_data_size：私有数据的大小
 
 ```
+
 * 音视频数据帧
 
 AVFrame 结构体用来表示未进行编码压缩的音视频数据，其中主要的几个字段：
+
 ```c
 
 typedef struct AVFrame
@@ -168,7 +165,9 @@ typedef struct AVFrame
 }
 
 ```
+
 常用的操作函数:
+
 ```c
 
 AVFrame *av_frame_alloc(void);  // 分配一个数据帧结构
@@ -182,9 +181,11 @@ int av_frame_ref(AVFrame *dst, const AVFrame *src);  // 增加引用计数
 void av_frame_unref(AVFrame *frame);  // 减少引用计数
 
 ```
+
 * 音视频数据包
 
 AVPacket 结构体用来表示压缩后的音视频数据，其中主要的几个字段：
+
 ```c
 
 typedef struct AVPacket
@@ -203,7 +204,9 @@ typedef struct AVPacket
 } AVPacket;
 
 ```
+
 常用操作函数:
+
 ```c
 
 AVPacket *av_packet_alloc(void);  // 分配一个数据包结构体
@@ -218,7 +221,4 @@ int av_new_packet(AVPacket *pkt, int size); // 根据指定大小创建包结构
 
 ```
 
-
-
-Tags:
-  FFMPEG, 库框架, 音视频
+Tags: FFMPEG, 库框架, 音视频
